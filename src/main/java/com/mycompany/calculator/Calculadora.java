@@ -2,9 +2,11 @@ package com.mycompany.calculator;
 
 public class Calculadora extends javax.swing.JFrame {
 
-    String N1;
+    String N1 = "";
     String N2;
+    String NT;
     String signo;
+    int lon;
     
     public Calculadora() {
         initComponents();
@@ -80,6 +82,7 @@ public class Calculadora extends javax.swing.JFrame {
             }
         });
         jPanel1.add(borrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 50, 40));
+        borrar.getAccessibleContext().setAccessibleDescription("");
 
         igual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/igual.png"))); // NOI18N
         igual.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -294,67 +297,143 @@ public class Calculadora extends javax.swing.JFrame {
 
     private void acMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acMouseClicked
         jTextField1.setText("");
+        jTextResultado.setText("");
     }//GEN-LAST:event_acMouseClicked
 
     private void menosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menosMouseClicked
+        if(!jTextResultado.getText().equals("")){
+            jTextField1.setText(jTextResultado.getText() + "-");
+        }
         if (!jTextField1.getText().equals("")){
             N1 = jTextField1.getText();
             signo = "-";
-            jTextField1.setText("");
+            if (!jTextResultado.getText().equals("")){
+                NT = jTextResultado.getText();
+            }
+            String cadena = jTextField1.getText();
+            if (!cadena.substring(cadena.length()-1, cadena.length()).equals("-")){
+            jTextField1.setText(jTextField1.getText() + "-");    
+            }
         }
     }//GEN-LAST:event_menosMouseClicked
 
     private void igualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_igualMouseClicked
+        if(N1.equals("")){
+          jTextResultado.setText(jTextField1.getText());
+        }
+        
         String resultado;
-        N2 = jTextField1.getText();
+        lon = N1.length();
+        String cadena;
+        cadena = jTextField1.getText();
+        if (!jTextResultado.getText().equals("")){
+            N1 = NT;
+         N2 = cadena.substring(lon , cadena.length());
+            if (!N2.equals("")){
+                resultado = calculos (N1,N2,signo);
+                jTextResultado.setText(resultado);
+            }              
+        }else{
+        N2 = cadena.substring(lon + 1, cadena.length());
         if (!N2.equals("")){
             resultado = calculos (N1,N2,signo);
             jTextResultado.setText(resultado);
+        }            
         }
+
+        System.err.println("N1 "+ N1);
+        System.err.println("N2 "+ N2);
     }//GEN-LAST:event_igualMouseClicked
 
     private void masMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masMouseClicked
+        if(!jTextResultado.getText().equals("")){
+            jTextField1.setText(jTextResultado.getText() + "+");
+        }
         if (!jTextField1.getText().equals("")){
             N1 = jTextField1.getText();
             signo = "+";
-            jTextField1.setText("");
+            if (!jTextResultado.getText().equals("")){
+                NT = jTextResultado.getText();
+            }
+            String cadena = jTextField1.getText();
+            if (!cadena.substring(cadena.length()-1, cadena.length()).equals("+")){
+            jTextField1.setText(jTextField1.getText() + "+");    
+            }
         }
     }//GEN-LAST:event_masMouseClicked
 
     private void porMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_porMouseClicked
+        if(!jTextResultado.getText().equals("")){
+            jTextField1.setText(jTextResultado.getText() + "*");
+        }
         if (!jTextField1.getText().equals("")){
             N1 = jTextField1.getText();
             signo = "*";
-            jTextField1.setText("");
+            if (!jTextResultado.getText().equals("")){
+                NT = jTextResultado.getText();
+            }
+            String cadena = jTextField1.getText();
+            if (!cadena.substring(cadena.length()-1, cadena.length()).equals("*")){
+            jTextField1.setText(jTextField1.getText() + "*");    
+            }
         }
     }//GEN-LAST:event_porMouseClicked
 
     private void entreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_entreMouseClicked
+        if(!jTextResultado.getText().equals("")){
+            jTextField1.setText(jTextResultado.getText() + "/");
+        }
         if (!jTextField1.getText().equals("")){
             N1 = jTextField1.getText();
             signo = "/";
-            jTextField1.setText("");
+            if (!jTextResultado.getText().equals("")){
+                NT = jTextResultado.getText();
+            }
+            String cadena = jTextField1.getText();
+            if (!cadena.substring(cadena.length()-1, cadena.length()).equals("/")){
+            jTextField1.setText(jTextField1.getText() + "/");    
+            }
         }
     }//GEN-LAST:event_entreMouseClicked
 
     private void potenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_potenciaMouseClicked
+        if(!jTextResultado.getText().equals("")){
+            jTextField1.setText(jTextResultado.getText() + "^");
+        }
         if (!jTextField1.getText().equals("")){
             N1 = jTextField1.getText();
             signo = "^";
-            jTextField1.setText("");
+            if (!jTextResultado.getText().equals("")){
+                NT = jTextResultado.getText();
+            }
+            String cadena = jTextField1.getText();
+            if (!cadena.substring(cadena.length()-1, cadena.length()).equals("^")){
+            jTextField1.setText(jTextField1.getText() + "^");    
+            }
         }
     }//GEN-LAST:event_potenciaMouseClicked
 
     private void raizMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_raizMouseClicked
         Double raiz = 0.0;
         Double resu;
-        if (!jTextField1.getText().equals("")){
+        if (!jTextResultado.getText().equals("")){
+            N1 = jTextResultado.getText();
+            raiz = Double.parseDouble(N1);
+            resu = Math.sqrt(raiz);
+            Double round = Math.round(resu * 10000.0) / 10000.0;
+            jTextField1.setText("Sqrt" + "(" + N1 + ")");
+            jTextResultado.setText(round.toString());
+        }  else{
+            if (!jTextField1.getText().equals("")){
             N1 = jTextField1.getText();
             raiz = Double.parseDouble(N1);
             resu = Math.sqrt(raiz);
             Double round = Math.round(resu * 10000.0) / 10000.0;
+            jTextField1.setText("Sqrt" + "(" + N1 + ")");
             jTextResultado.setText(round.toString());
-        }
+            }
+        }      
+        
     }//GEN-LAST:event_raizMouseClicked
 
     public static boolean existepunto(String cadena){

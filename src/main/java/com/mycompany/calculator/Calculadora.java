@@ -303,7 +303,7 @@ public class Calculadora extends javax.swing.JFrame {
             jTextField1.setText("");
         }
     }//GEN-LAST:event_menosMouseClicked
-//hola
+
     private void igualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_igualMouseClicked
         String resultado;
         N2 = jTextField1.getText();
